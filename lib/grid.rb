@@ -54,4 +54,8 @@ class Grid
       (0..8).map { |x| [[x, y], solution_candidates(x, y)] if get(x, y) == 0 }
     end.compact.min_by { |element| element[1].count }
   end
+
+  def copy
+    Grid.new(@rows)
+  end
 end

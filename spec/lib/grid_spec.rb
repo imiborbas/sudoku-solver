@@ -164,4 +164,22 @@ describe Grid do
       expect(grid.primary_solution_candidates).to eq([[6, 0], [7]])
     end
   end
+
+  describe '#copy' do
+    it 'returns a copy of itself that has the same values' do
+      grid1 = Grid.from_string(input_from_file)
+
+      grid2 = grid1.copy
+
+      expect(grid2.to_s).to eq(grid1.to_s)
+    end
+
+    it 'returns a new Grid instance' do
+      grid1 = Grid.from_string(input_from_file)
+
+      grid2 = grid1.copy
+
+      expect(grid2).not_to equal(grid1)
+    end
+  end
 end
