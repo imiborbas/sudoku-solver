@@ -95,6 +95,16 @@ describe Grid do
     end
   end
 
+  describe '#set' do
+    it 'sets the value at the specified cell' do
+      grid = Grid.new(valid_complete_input)
+
+      grid.set(2, 3, 7)
+
+      expect(grid.get(2, 3)).to eq(7)
+    end
+  end
+
   describe '#row' do
     it 'returns the specified row' do
       grid = Grid.new(valid_complete_input)

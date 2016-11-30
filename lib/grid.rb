@@ -14,6 +14,10 @@ class Grid
     @rows[y][x]
   end
 
+  def set(x, y, value)
+    @rows[y][x] = value.to_i
+  end
+
   def to_s
     @rows.map { |row| row.join(' ') }.join("\n")
   end
