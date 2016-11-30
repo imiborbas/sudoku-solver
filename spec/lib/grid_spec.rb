@@ -129,17 +129,17 @@ describe Grid do
     end
   end
 
-  describe '#incomplete?' do
-    it 'returns false if the input is complete' do
+  describe '#complete?' do
+    it 'returns true if the input is complete' do
       grid = Grid.new(valid_complete_input)
 
-      expect(grid.incomplete?).to eq(false)
+      expect(grid.complete?).to eq(true)
     end
 
-    it 'returns true if the input is incomplete' do
+    it 'returns false if the input is incomplete' do
       grid = Grid.new(valid_incomplete_input)
 
-      expect(grid.incomplete?).to eq(true)
+      expect(grid.complete?).to eq(false)
     end
   end
 

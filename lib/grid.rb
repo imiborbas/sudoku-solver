@@ -41,8 +41,8 @@ class Grid
     end
   end
 
-  def incomplete?
-    @rows.flatten.include?(0)
+  def complete?
+    not @rows.flatten.include?(0)
   end
 
   def solution_candidates(x, y)
