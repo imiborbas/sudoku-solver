@@ -163,25 +163,25 @@ describe Grid do
     end
   end
 
-  describe '#solution_candidates' do
+  describe '#cell_solution_candidates' do
     it 'returns the possible values for a given cell of the grid' do
       grid = Grid.new(valid_incomplete_input)
 
-      expect(grid.solution_candidates(4, 4)).to eq([6])
+      expect(grid.cell_solution_candidates(4, 4)).to eq([6])
     end
 
     it 'returns the possible values for a given cell of the grid' do
       grid = Grid.from_string(input_from_file)
 
-      expect(grid.solution_candidates(0, 7)).to eq([5])
+      expect(grid.cell_solution_candidates(0, 7)).to eq([5])
     end
   end
 
-  describe '#primary_solution_candidates' do
-    it 'returns the coordinates, and the solution candidates of the cell with the lowest number of candidates' do
-      grid = Grid.from_string(input_from_file)
+  describe '#all_solution_candidates' do
+    it 'returns the coordinates, and the solution candidates of all cells with zero value' do
+      grid = Grid.new(valid_incomplete_input)
 
-      expect(grid.primary_solution_candidates).to eq([[6, 0], [7]])
+      expect(grid.all_solution_candidates).to eq([Grid::SolutionCandidate.new(4, 4, [6])])
     end
   end
 
