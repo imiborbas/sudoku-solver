@@ -10,6 +10,10 @@ class Grid
           .select { |row| row.count == 9 })
   end
 
+  def get(x, y)
+    @rows[y][x]
+  end
+
   def to_s
     @rows.map { |row| row.join(' ') }.join("\n")
   end
@@ -38,6 +42,12 @@ class Grid
   end
 
   def solution_candidates(x, y)
-    (1..9).to_a - (row(y) & column(x) & subgroup(x / 3, y / 3))
+    (1..9).to_a - (row(y) | column(x) | subgroup(x / 3, y / 3))
+  end
+
+  def primary_solution_candidates
+    (0..8).flat_map do |y|
+      (0..8).map { |x| [[x, y], solution_candidates(x, y)] if get(x, y) == 0 }
+    end.compact.min_by { |element| element[1].count }
   end
 end

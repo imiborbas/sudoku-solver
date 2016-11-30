@@ -29,6 +29,8 @@ describe Grid do
     ]
   }
 
+  let(:input_from_file) { File.read(File.expand_path('../fixtures/easy.sudoku', __dir__)) }
+
   describe '#new' do
     it 'constructs a Grid object' do
       grid = Grid.new(valid_complete_input)
@@ -56,16 +58,14 @@ describe Grid do
   end
 
   describe '.from_string' do
-    let(:input) { File.read(File.expand_path('../fixtures/easy.sudoku', __dir__)) }
-
     it 'returns a Grid instance' do
-      grid = Grid.from_string(input)
+      grid = Grid.from_string(input_from_file)
 
       expect(grid.class).to eq(Grid)
     end
 
     it 'returns a Grid containing the same numbers as the input file' do
-      grid = Grid.from_string(input).to_s
+      grid = Grid.from_string(input_from_file).to_s
 
       expect(grid).to eq(
         "3 0 6 0 1 5 0 0 0\n" +
@@ -78,6 +78,20 @@ describe Grid do
         "0 3 7 8 9 1 4 6 2\n" +
         '0 2 0 6 0 0 8 0 0'
       )
+    end
+  end
+
+  describe '#get' do
+    it 'returns the value at the specified cell' do
+      grid = Grid.new(valid_complete_input)
+
+      expect(grid.get(2, 3)).to eq(6)
+    end
+
+    it 'returns the value at the specified cell' do
+      grid = Grid.from_string(input_from_file)
+
+      expect(grid.get(5, 7)).to eq(1)
     end
   end
 
@@ -124,6 +138,20 @@ describe Grid do
       grid = Grid.new(valid_incomplete_input)
 
       expect(grid.solution_candidates(4, 4)).to eq([6])
+    end
+
+    it 'returns the possible values for a given cell of the grid' do
+      grid = Grid.from_string(input_from_file)
+
+      expect(grid.solution_candidates(0, 7)).to eq([5])
+    end
+  end
+
+  describe '#primary_solution_candidates' do
+    it 'returns the coordinates, and the solution candidates of the cell with the lowest number of candidates' do
+      grid = Grid.from_string(input_from_file)
+
+      expect(grid.primary_solution_candidates).to eq([[6, 0], [7]])
     end
   end
 end
