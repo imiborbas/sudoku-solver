@@ -69,6 +69,6 @@ class Grid
   end
 
   def copy
-    Grid.new(@rows)
+    Grid.from_string(to_s)
   end
 end

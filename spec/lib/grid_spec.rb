@@ -214,5 +214,14 @@ describe Grid do
 
       expect(grid2).not_to equal(grid1)
     end
+
+    it 'is independent from the original grid' do
+      grid1 = Grid.from_string(input_from_file)
+
+      grid2 = grid1.copy
+      grid2.set(2, 1, 3)
+
+      expect(grid1.get(2, 1)).to eq(4)
+    end
   end
 end
