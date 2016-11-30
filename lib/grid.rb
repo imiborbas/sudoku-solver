@@ -36,4 +36,8 @@ class Grid
   def incomplete?
     @rows.flatten.include?(0)
   end
+
+  def solution_candidates(x, y)
+    (1..9).to_a - (row(y) & column(x) & subgroup(x / 3, y / 3))
+  end
 end

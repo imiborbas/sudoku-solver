@@ -107,15 +107,23 @@ describe Grid do
 
   describe '#incomplete?' do
     it 'returns false if the input is complete' do
-      validator = Grid.new(valid_complete_input)
+      grid = Grid.new(valid_complete_input)
 
-      expect(validator.incomplete?).to eq(false)
+      expect(grid.incomplete?).to eq(false)
     end
 
     it 'returns true if the input is incomplete' do
-      validator = Grid.new(valid_incomplete_input)
+      grid = Grid.new(valid_incomplete_input)
 
-      expect(validator.incomplete?).to eq(true)
+      expect(grid.incomplete?).to eq(true)
+    end
+  end
+
+  describe '#solution_candidates' do
+    it 'returns the possible values for a given cell of the grid' do
+      grid = Grid.new(valid_incomplete_input)
+
+      expect(grid.solution_candidates(4, 4)).to eq([6])
     end
   end
 end
