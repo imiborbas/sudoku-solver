@@ -22,6 +22,16 @@ class Grid
     @rows.map { |row| row.join(' ') }.join("\n")
   end
 
+  def pretty
+    @rows.map do |row|
+      sprintf("%d %d %d |%d %d %d |%d %d %d", row[0], row[1], row[2], row[3], row[4], row[5], row[6], row[7], row[8])
+    end.tap do |rows|
+      rows
+        .insert(3, '------+------+------')
+        .insert(7, '------+------+------')
+    end.join("\n")
+  end
+
   def row(number)
     @rows[number]
   end
