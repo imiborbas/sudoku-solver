@@ -1,6 +1,6 @@
-require 'sudoku'
+require 'grid'
 
-describe Sudoku do
+describe Grid do
   let(:valid_complete_input) {
     [
       [8, 5, 9, 6, 1, 2, 4, 3, 7],
@@ -30,18 +30,18 @@ describe Sudoku do
   }
 
   describe '#new' do
-    it 'constructs a Sudoku object' do
-      sudoku = Sudoku.new(valid_complete_input)
+    it 'constructs a Grid object' do
+      grid = Grid.new(valid_complete_input)
 
-      expect(sudoku.class).to eq(Sudoku)
+      expect(grid.class).to eq(Grid)
     end
   end
 
   describe '#to_s' do
-    it 'returns a grid representation of the Sudoku board' do
-      board = Sudoku.new(valid_complete_input).to_s
+    it 'returns a string representation of the Grid' do
+      grid = Grid.new(valid_complete_input).to_s
 
-      expect(board).to eq(
+      expect(grid).to eq(
         "8 5 9 6 1 2 4 3 7\n" +
         "7 2 3 8 5 4 1 6 9\n" +
         "1 6 4 3 7 9 5 2 8\n" +
@@ -58,16 +58,16 @@ describe Sudoku do
   describe '.from_string' do
     let(:input) { File.read(File.expand_path('../fixtures/easy.sudoku', __dir__)) }
 
-    it 'returns a Sudoku instance' do
-      sudoku = Sudoku.from_string(input)
+    it 'returns a Grid instance' do
+      grid = Grid.from_string(input)
 
-      expect(sudoku.class).to eq(Sudoku)
+      expect(grid.class).to eq(Grid)
     end
 
-    it 'returns a Sudoku grid containing the same numbers as the input file' do
-      board = Sudoku.from_string(input).to_s
+    it 'returns a Grid containing the same numbers as the input file' do
+      grid = Grid.from_string(input).to_s
 
-      expect(board).to eq(
+      expect(grid).to eq(
         "3 0 6 0 1 5 0 0 0\n" +
         "0 0 4 0 0 0 3 0 0\n" +
         "0 0 0 0 6 8 1 9 4\n" +
@@ -83,37 +83,37 @@ describe Sudoku do
 
   describe '#row' do
     it 'returns the specified row' do
-      board = Sudoku.new(valid_complete_input)
+      grid = Grid.new(valid_complete_input)
 
-      expect(board.row(2)).to eq([1, 6, 4, 3, 7, 9, 5, 2, 8])
+      expect(grid.row(2)).to eq([1, 6, 4, 3, 7, 9, 5, 2, 8])
     end
   end
 
   describe '#column' do
     it 'returns the specified column' do
-      board = Sudoku.new(valid_complete_input)
+      grid = Grid.new(valid_complete_input)
 
-      expect(board.column(2)).to eq([9, 3, 4, 6, 5, 1, 2, 7, 8])
+      expect(grid.column(2)).to eq([9, 3, 4, 6, 5, 1, 2, 7, 8])
     end
   end
 
   describe '#subgroup' do
     it 'returns the specified sub-group' do
-      board = Sudoku.new(valid_complete_input)
+      grid = Grid.new(valid_complete_input)
 
-      expect(board.subgroup(1, 1)).to eq([1, 4, 7, 2, 6, 8, 5, 9, 3])
+      expect(grid.subgroup(1, 1)).to eq([1, 4, 7, 2, 6, 8, 5, 9, 3])
     end
   end
 
   describe '#incomplete?' do
     it 'returns false if the input is complete' do
-      validator = Sudoku.new(valid_complete_input)
+      validator = Grid.new(valid_complete_input)
 
       expect(validator.incomplete?).to eq(false)
     end
 
     it 'returns true if the input is incomplete' do
-      validator = Sudoku.new(valid_incomplete_input)
+      validator = Grid.new(valid_incomplete_input)
 
       expect(validator.incomplete?).to eq(true)
     end

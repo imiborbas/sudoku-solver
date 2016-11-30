@@ -1,8 +1,8 @@
-require_relative 'sudoku'
+require_relative 'grid'
 
 class Validator
   def initialize(puzzle_string)
-    @sudoku = Sudoku.from_string(puzzle_string)
+    @sudoku = Grid.from_string(puzzle_string)
   end
 
   def self.validate(puzzle_string)

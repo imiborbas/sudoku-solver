@@ -1,4 +1,4 @@
-class Sudoku
+class Grid
   def initialize(rows)
     @rows = rows
   end
