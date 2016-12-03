@@ -3,6 +3,7 @@ require 'grid'
 
 describe SolverGrid do
   let(:input) { File.read(File.expand_path('../fixtures/hard.sudoku', __dir__)) }
+  let(:unsolvable_input) { File.read(File.expand_path('../fixtures/unsolvable.sudoku', __dir__)) }
 
   describe '#new' do
     it 'returns a new SolverGrid' do
@@ -134,6 +135,26 @@ describe SolverGrid do
       result = solver_grid.easiest_unsolved_cell
 
       expect(result).to eq(SolverGrid::UnsolvedCell.new(1, 6, [8, 9]))
+    end
+  end
+
+  describe '#solvable?' do
+    it 'returns true if the grid is in a solvable state' do
+      solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.solve
+
+      result = solver_grid.solvable?
+
+      expect(result).to eq(true)
+    end
+
+    it 'returns false if the grid is not in a solvable state' do
+      solver_grid = SolverGrid.new(Grid.from_string(unsolvable_input))
+      solver_grid.solve
+
+      result = solver_grid.solvable?
+
+      expect(result).to eq(false)
     end
   end
 end

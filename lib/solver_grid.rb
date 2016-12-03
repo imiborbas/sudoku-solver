@@ -47,6 +47,10 @@ class SolverGrid
       .first
   end
 
+  def solvable?
+    solution.select { |values| values.empty? }.empty?
+  end
+
   private
 
   def all_cells
@@ -81,7 +85,9 @@ class SolverGrid
   end
 
   def update_possible_values
-    @solution = (0..80).map { |i| possible_cell_values(i % 9, i / 9) }
+    @solution = all_cells.map do |x, y|
+      possible_cell_values(x, y).tap { |values| grid.set(x, y, values.first) if values.size == 1 }
+    end
   end
 
   def possible_cell_values(x, y)
