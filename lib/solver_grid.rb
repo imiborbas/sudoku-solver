@@ -29,7 +29,46 @@ class SolverGrid
     end.compact
   end
 
+  def solve
+    all_cells.each do |x, y|
+      solve_cell(x, y).tap do |value|
+        update_cell(x, y, value) if value
+      end
+    end
+  end
+
   private
+
+  def all_cells
+    (0..8).flat_map { |y| (0..8).map { |x| [x, y] } }
+  end
+
+  def solve_cell(x, y)
+    return false if cell(x, y).size == 1
+
+    solve_unit(cell(x, y), row(y, except_column: x)).tap do |values|
+      return values.first if values.size == 1
+    end
+
+    solve_unit(cell(x, y), column(x, except_row: y)).tap do |values|
+      return values.first if values.size == 1
+    end
+
+    solve_unit(cell(x, y), subgroup(x / 3, y / 3, except_at: [x, y])).tap do |values|
+      return values.first if values.size == 1
+    end
+
+    false
+  end
+
+  def solve_unit(cell_values, unit_values)
+    unit_values.inject(cell_values) { |intersection, current| intersection - current }
+  end
+
+  def update_cell(x, y, value)
+    grid.set(x, y, value)
+    update_possible_values
+  end
 
   def update_possible_values
     @solution = (0..80).map { |i| possible_cell_values(i % 9, i / 9) }
