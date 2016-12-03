@@ -1,4 +1,6 @@
 class SolverGrid
+  UnsolvedCell = Struct.new(:x, :y, :possible_values)
+
   attr_accessor :solution
 
   def initialize(grid)
@@ -35,6 +37,14 @@ class SolverGrid
         update_cell(x, y, value) if value
       end
     end
+  end
+
+  def easiest_unsolved_cell
+    all_cells
+      .map { |x, y| UnsolvedCell.new(x, y, cell(x, y)) }
+      .select { |cell| cell.possible_values.size > 1 }
+      .sort_by { |cell| cell.possible_values.size }
+      .first
   end
 
   private

@@ -118,4 +118,22 @@ describe SolverGrid do
       expect(grid.get(1, 5)).to eq(4)
     end
   end
+
+  describe '#easiest_unsolved_cell' do
+    it 'returns a Grid::UnsolvedCell instance' do
+      solver_grid = SolverGrid.new(Grid.from_string(input))
+
+      result = solver_grid.easiest_unsolved_cell
+
+      expect(result.class).to eq(SolverGrid::UnsolvedCell)
+    end
+
+    it 'returns the correct value based on the grid' do
+      solver_grid = SolverGrid.new(Grid.from_string(input))
+
+      result = solver_grid.easiest_unsolved_cell
+
+      expect(result).to eq(SolverGrid::UnsolvedCell.new(1, 6, [8, 9]))
+    end
+  end
 end
