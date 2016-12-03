@@ -91,11 +91,11 @@ describe SolverGrid do
     end
   end
 
-  describe '#solve' do
+  describe '#attempt!' do
     it 'figures out as many values as possible from the current state of the grid' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
 
-      solver_grid.solve
+      solver_grid.attempt!
 
       expect(solver_grid.solution).to eq([
         [4],             [1, 6, 7, 9],       [1, 2, 6, 7, 9],       [1, 3, 9],       [2, 3, 6, 9],       [2, 6, 9],             [8],             [1, 2, 3, 9],    [5],
@@ -114,7 +114,7 @@ describe SolverGrid do
       grid = Grid.from_string(input)
       solver_grid = SolverGrid.new(grid)
 
-      solver_grid.solve
+      solver_grid.attempt!
 
       expect(grid.get(1, 5)).to eq(4)
     end
@@ -141,7 +141,7 @@ describe SolverGrid do
   describe '#solvable?' do
     it 'returns true if the grid is in a solvable state' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
-      solver_grid.solve
+      solver_grid.attempt!
 
       result = solver_grid.solvable?
 
@@ -150,7 +150,7 @@ describe SolverGrid do
 
     it 'returns false if the grid is not in a solvable state' do
       solver_grid = SolverGrid.new(Grid.from_string(unsolvable_input))
-      solver_grid.solve
+      solver_grid.attempt!
 
       result = solver_grid.solvable?
 

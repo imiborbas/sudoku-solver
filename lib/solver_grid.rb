@@ -5,7 +5,7 @@ class SolverGrid
 
   def initialize(grid)
     @grid = grid
-    update_possible_values
+    update_possible_values!
   end
 
   def cell(x, y)
@@ -31,10 +31,10 @@ class SolverGrid
     end.compact
   end
 
-  def solve
+  def attempt!
     all_cells.each do |x, y|
       solve_cell(x, y).tap do |value|
-        update_cell(x, y, value) if value
+        update_cell!(x, y, value) if value
       end
     end
   end
@@ -89,12 +89,12 @@ class SolverGrid
     unit_values.inject(cell_values) { |intersection, current| intersection - current }
   end
 
-  def update_cell(x, y, value)
+  def update_cell!(x, y, value)
     grid.set(x, y, value)
-    update_possible_values
+    update_possible_values!
   end
 
-  def update_possible_values
+  def update_possible_values!
     @solution = all_cells.map do |x, y|
       possible_cell_values(x, y).tap { |values| grid.set(x, y, values.first) if values.size == 1 }
     end
