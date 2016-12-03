@@ -51,6 +51,16 @@ class SolverGrid
     solution.select { |values| values.empty? }.empty?
   end
 
+  def visualize
+    (0..8)
+      .map { |y| (0..8).map { |x| cell(x, y).tap { |s| s.size == 1 ? s[0] = "[#{s[0]}]" : s }.join.center(14) }.join(' | ') }
+      .insert(3, (0..8).map { '-' * 14 }.join('-+-'))
+      .insert(7, (0..8).map { '-' * 14 }.join('-+-'))
+      .insert(0, "\n")
+      .insert(12, "\n")
+      .join("\n\n")
+  end
+
   private
 
   def all_cells
