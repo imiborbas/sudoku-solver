@@ -163,41 +163,6 @@ describe Grid do
     end
   end
 
-  describe '#cell_solution_candidates' do
-    it 'returns the possible values for a given cell of the grid' do
-      grid = Grid.new(valid_incomplete_input)
-
-      expect(grid.cell_solution_candidates(4, 4)).to eq([6])
-    end
-
-    it 'returns the possible values for a given cell of the grid' do
-      grid = Grid.from_string(input_from_file)
-
-      expect(grid.cell_solution_candidates(0, 7)).to eq([5])
-    end
-  end
-
-  describe '#all_solution_candidates' do
-    it 'returns the coordinates, and the solution candidates of all cells with zero value' do
-      grid = Grid.new([
-        [8, 5, 9, 6, 1, 2, 4, 3, 7],
-        [7, 2, 3, 8, 5, 4, 1, 6, 9],
-        [1, 6, 4, 3, 7, 9, 5, 2, 8],
-        [9, 8, 6, 1, 4, 7, 3, 5, 2],
-        [3, 7, 5, 2, 0, 8, 0, 1, 4],
-        [2, 4, 1, 5, 0, 3, 0, 8, 6],
-        [4, 3, 2, 9, 8, 1, 6, 7, 5],
-        [6, 1, 7, 4, 2, 5, 8, 9, 3],
-        [5, 9, 8, 7, 3, 6, 2, 4, 1]
-      ])
-
-      expect(grid.all_solution_candidates).to eq([Grid::SolutionCandidate.new(6, 4, [9]),
-                                                  Grid::SolutionCandidate.new(4, 5, [9]),
-                                                  Grid::SolutionCandidate.new(4, 4, [6, 9]),
-                                                  Grid::SolutionCandidate.new(6, 5, [7, 9])])
-    end
-  end
-
   describe '#copy' do
     it 'returns a copy of itself that has the same values' do
       grid1 = Grid.from_string(input_from_file)

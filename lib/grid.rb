@@ -1,6 +1,4 @@
 class Grid
-  SolutionCandidate = Struct.new(:x, :y, :values)
-
   def initialize(rows)
     @rows = rows
   end
@@ -55,17 +53,6 @@ class Grid
 
   def complete?
     not @rows.flatten.include?(0)
-  end
-
-  def cell_solution_candidates(x, y)
-    (1..9).to_a - (row(y) | column(x) | subgroup(x / 3, y / 3))
-  end
-
-  def all_solution_candidates
-    (0..8)
-      .flat_map { |y| (0..8).map { |x| SolutionCandidate.new(x, y, cell_solution_candidates(x, y)) if get(x, y) == 0 } }
-      .compact
-      .sort_by { |element| element.values.count }
   end
 
   def copy
