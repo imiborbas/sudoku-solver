@@ -92,9 +92,8 @@ describe SolverGrid do
 
   describe '#solve' do
     it 'figures out as many values as possible from the current state of the grid' do
-      grid = Grid.from_string(input)
+      solver_grid = SolverGrid.new(Grid.from_string(input))
 
-      solver_grid = SolverGrid.new(grid)
       solver_grid.solve
 
       expect(solver_grid.solution).to eq([
@@ -112,8 +111,8 @@ describe SolverGrid do
 
     it 'updates the underlying grid with the newly found values' do
       grid = Grid.from_string(input)
-
       solver_grid = SolverGrid.new(grid)
+
       solver_grid.solve
 
       expect(grid.get(1, 5)).to eq(4)
