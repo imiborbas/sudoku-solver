@@ -8,10 +8,16 @@ describe SudokuSolver do
       expect(SudokuSolver.solve(puzzle)).to eq(easy_solution)
     end
 
-    it "solves an hard puzzle" do
+    it "solves a hard puzzle" do
       puzzle = open_sudoku_puzzle("hard")
 
       expect(SudokuSolver.solve(puzzle)).to eq(hard_solution)
+    end
+
+    it "displays a message if the puzzle is unsolvable" do
+      puzzle = open_sudoku_puzzle("unsolvable")
+
+      expect(SudokuSolver.solve(puzzle)).to eq('This puzzle is not solvable.')
     end
 
     def easy_solution

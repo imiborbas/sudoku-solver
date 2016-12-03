@@ -1,6 +1,9 @@
+require 'grid'
+require 'solver_grid'
+
 class SudokuSolver
   def initialize(puzzle_string)
-    @puzzle_string = puzzle_string
+    @grid = Grid.from_string(puzzle_string)
   end
 
   def self.solve(puzzle_string)
@@ -8,10 +11,34 @@ class SudokuSolver
   end
 
   def solve
-    # Start creating your solution here.
-    #
-    # It's likely that you'll want to have many more classes than this one that
-    # was provided for you. Don't be hesistant to extract new objects (and
-    # write tests for them).
+    compute(@grid).tap do |grid|
+      return grid.pretty unless grid.nil?
+    end
+
+    'This puzzle is not solvable.'
+  end
+
+  private
+
+  def compute(grid)
+    solver_grid = SolverGrid.new(grid)
+    solver_grid.attempt!
+
+    return nil unless solver_grid.solvable?
+
+    return grid if grid.complete?
+
+    solver_grid.easiest_unsolved_cell.tap do |cell|
+      cell.possible_values.each do |value|
+        experimental_grid = grid.copy
+        experimental_grid.set(cell.x, cell.y, value)
+
+        compute(experimental_grid).tap do |result|
+          return result unless result.nil?
+        end
+      end
+    end
+
+    nil
   end
 end
