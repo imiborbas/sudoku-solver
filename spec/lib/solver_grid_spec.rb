@@ -65,25 +65,25 @@ describe SolverGrid do
     end
   end
 
-  describe '#subgroup' do
-    it 'returns an array of the possible values for each cell in the given subgroup' do
+  describe '#box' do
+    it 'returns an array of the possible values for each cell in the given box' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
 
-      subgroup = solver_grid.subgroup(2, 1)
+      box = solver_grid.box(2, 1)
 
-      expect(subgroup).to eq([
+      expect(box).to eq([
         [1, 3, 5, 7, 9], [6],             [1, 3, 7, 8, 9],
         [4],             [1, 2, 3, 5, 9], [1, 2, 3, 7, 9],
         [2, 3, 5, 7, 9], [2, 3, 5, 8, 9], [2, 3, 7, 8, 9]
       ])
     end
 
-    it 'returns an array of the possible values for each cell in the given subgroup, except for the specified cell' do
+    it 'returns an array of the possible values for each cell in the given box, except for the specified cell' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
 
-      subgroup = solver_grid.subgroup(2, 1, except_at: [8, 4])
+      box = solver_grid.box(2, 1, except_at: [8, 4])
 
-      expect(subgroup).to eq([
+      expect(box).to eq([
         [1, 3, 5, 7, 9], [6],             [1, 3, 7, 8, 9],
         [4],             [1, 2, 3, 5, 9],
         [2, 3, 5, 7, 9], [2, 3, 5, 8, 9], [2, 3, 7, 8, 9]

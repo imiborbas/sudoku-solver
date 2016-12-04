@@ -141,11 +141,11 @@ describe Grid do
     end
   end
 
-  describe '#subgroup' do
-    it 'returns the specified sub-group' do
+  describe '#box' do
+    it 'returns the specified box' do
       grid = Grid.new(valid_complete_input)
 
-      expect(grid.subgroup(1, 1)).to eq([1, 4, 7, 2, 6, 8, 5, 9, 3])
+      expect(grid.box(1, 1)).to eq([1, 4, 7, 2, 6, 8, 5, 9, 3])
     end
   end
 

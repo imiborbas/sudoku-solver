@@ -40,7 +40,7 @@ class Grid
     @rows.transpose[number]
   end
 
-  def subgroup(x, y)
+  def box(x, y)
     from_col = 3 * x
     to_col = 3 * (x + 1)
     from_row = 3 * y

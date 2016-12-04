@@ -20,7 +20,7 @@ class SolverGrid
     (0..8).select { |i| i != except_row }.map { |y| cell(x, y) }
   end
 
-  def subgroup(i, j, except_at: nil)
+  def box(i, j, except_at: nil)
     from_x = 3 * i
     to_x = 3 * (i + 1)
     from_y = 3 * j
@@ -68,7 +68,7 @@ class SolverGrid
       return values.first if values.size == 1
     end
 
-    solve_unit(cell(x, y), subgroup(x / 3, y / 3, except_at: [x, y])).tap do |values|
+    solve_unit(cell(x, y), box(x / 3, y / 3, except_at: [x, y])).tap do |values|
       return values.first if values.size == 1
     end
 
@@ -95,7 +95,7 @@ class SolverGrid
       return [value] if value > 0
     end
 
-    (1..9).to_a - (grid.row(y) | grid.column(x) | grid.subgroup(x / 3, y / 3))
+    (1..9).to_a - (grid.row(y) | grid.column(x) | grid.box(x / 3, y / 3))
   end
 
   def grid
