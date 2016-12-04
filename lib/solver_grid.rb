@@ -80,7 +80,7 @@ class SolverGrid
   end
 
   def solve_unit(cell_values, unit_values)
-    unit_values.inject(cell_values) { |intersection, current| intersection - current }
+    unit_values.inject(cell_values) { |remaining, current| remaining - current }
   end
 
   def update_cell!(x, y, value)
