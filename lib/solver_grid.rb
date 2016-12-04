@@ -1,8 +1,6 @@
 class SolverGrid
   UnsolvedCell = Struct.new(:x, :y, :possible_values)
 
-  attr_accessor :solution
-
   def initialize(grid)
     @grid = grid
   end
@@ -106,5 +104,9 @@ class SolverGrid
 
   def grid
     @grid
+  end
+
+  def solution
+    @solution
   end
 end
