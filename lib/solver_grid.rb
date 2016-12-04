@@ -51,6 +51,12 @@ class SolverGrid
     solution.select { |values| values.empty? }.empty?
   end
 
+  def to_s
+    (0..8)
+      .map { |y| (0..8).map { |x| cell(x, y).join.center(9) }.join(' | ') }
+      .join("\n#{(0..8).map { '-' * 9 }.join('-+-')}\n")
+  end
+
   private
 
   def all_cells
