@@ -19,10 +19,6 @@ class Grid
   end
 
   def to_s
-    @rows.map { |row| row.join(' ') }.join("\n")
-  end
-
-  def pretty
     @rows
       .map { |row| sprintf('%d %d %d |%d %d %d |%d %d %d', *row) }
       .insert(3, '------+------+------')

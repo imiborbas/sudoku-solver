@@ -12,7 +12,7 @@ class SudokuSolver
 
   def solve
     compute(@grid).tap do |grid|
-      return grid.pretty unless grid.nil?
+      return grid.to_s unless grid.nil?
     end
 
     'This puzzle is not solvable.'
