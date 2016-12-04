@@ -15,7 +15,7 @@ class Grid
   end
 
   def set(x, y, value)
-    @rows[y][x] = value.to_i
+    @rows[y][x] = value
   end
 
   def to_s
@@ -30,27 +30,27 @@ class Grid
       .join("\n")
   end
 
-  def row(number)
-    @rows[number]
+  def row(y)
+    @rows[y]
   end
 
-  def column(number)
-    @rows.transpose[number]
+  def column(x)
+    @rows.transpose[x]
   end
 
-  def box(x, y)
-    from_col = 3 * x
-    to_col = 3 * (x + 1)
-    from_row = 3 * y
-    to_row = 3 * (y + 1)
+  def box(i, j)
+    from_x = 3 * i
+    to_x = 3 * (i + 1)
+    from_y = 3 * j
+    to_y = 3 * (j + 1)
 
-    (from_row...to_row).flat_map do |row|
-      @rows[row][from_col...to_col]
+    (from_y...to_y).flat_map do |y|
+      @rows[y][from_x...to_x]
     end
   end
 
   def complete?
-    not @rows.flatten.include?(0)
+    !@rows.flatten.include?(0)
   end
 
   def copy
