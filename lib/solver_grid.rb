@@ -5,7 +5,6 @@ class SolverGrid
 
   def initialize(grid)
     @grid = grid
-    update_possible_values!
   end
 
   def cell(x, y)
@@ -32,6 +31,7 @@ class SolverGrid
   end
 
   def attempt!
+    update_possible_values!
     all_cells.each do |x, y|
       solve_cell(x, y).tap do |value|
         update_cell!(x, y, value) if value

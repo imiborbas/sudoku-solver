@@ -18,6 +18,7 @@ describe SolverGrid do
   describe '#cell' do
     it 'returns the possible values for the given cell' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       cell = solver_grid.cell(1, 2)
 
@@ -28,6 +29,7 @@ describe SolverGrid do
   describe '#row' do
     it 'returns an array of the possible values for each cell in the given row' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       row = solver_grid.row(6)
 
@@ -36,6 +38,7 @@ describe SolverGrid do
 
     it 'returns an array of the possible values for each cell in the given row, except for the specified column' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       row = solver_grid.row(6, except_column: 3)
 
@@ -46,6 +49,7 @@ describe SolverGrid do
   describe '#column' do
     it 'returns an array of the possible values for each cell in the given column' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       column = solver_grid.column(4)
 
@@ -56,6 +60,7 @@ describe SolverGrid do
 
     it 'returns an array of the possible values for each cell in the given column, except for the specified row' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       column = solver_grid.column(4, except_row: 2)
 
@@ -68,6 +73,7 @@ describe SolverGrid do
   describe '#box' do
     it 'returns an array of the possible values for each cell in the given box' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       box = solver_grid.box(2, 1)
 
@@ -80,6 +86,7 @@ describe SolverGrid do
 
     it 'returns an array of the possible values for each cell in the given box, except for the specified cell' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       box = solver_grid.box(2, 1, except_at: [8, 4])
 
@@ -123,18 +130,20 @@ describe SolverGrid do
   describe '#easiest_unsolved_cell' do
     it 'returns a Grid::UnsolvedCell instance' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       result = solver_grid.easiest_unsolved_cell
 
       expect(result.class).to eq(SolverGrid::UnsolvedCell)
     end
 
-    it 'returns the correct value based on the grid' do
+    it 'returns the cell with the least number of possibilities' do
       solver_grid = SolverGrid.new(Grid.from_string(input))
+      solver_grid.attempt!
 
       result = solver_grid.easiest_unsolved_cell
 
-      expect(result).to eq(SolverGrid::UnsolvedCell.new(1, 6, [8, 9]))
+      expect(result.possible_values.count).to eq(2)
     end
   end
 
