@@ -6,7 +6,7 @@ class SolverGrid
   end
 
   def cell(x, y)
-    solution[y * 9 + x]
+    candidates[y * 9 + x]
   end
 
   def row(y, except_column: nil)
@@ -45,7 +45,7 @@ class SolverGrid
   end
 
   def solvable?
-    solution.select { |values| values.empty? }.empty?
+    candidates.select { |values| values.empty? }.empty?
   end
 
   def to_s
@@ -88,7 +88,7 @@ class SolverGrid
   end
 
   def update_possible_values!
-    @solution = all_cells.map do |x, y|
+    @candidates = all_cells.map do |x, y|
       possible_cell_values(x, y).tap { |values| grid.set(x, y, values.first) if values.size == 1 }
     end
   end
@@ -105,7 +105,7 @@ class SolverGrid
     @grid
   end
 
-  def solution
-    @solution
+  def candidates
+    @candidates
   end
 end
