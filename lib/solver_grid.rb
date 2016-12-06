@@ -41,8 +41,7 @@ class SolverGrid
     all_cells
       .map { |x, y| UnsolvedCell.new(x, y, cell(x, y)) }
       .select { |cell| cell.possible_values.size > 1 }
-      .sort_by { |cell| cell.possible_values.size }
-      .first
+      .min_by { |cell| cell.possible_values.size }
   end
 
   def solvable?
