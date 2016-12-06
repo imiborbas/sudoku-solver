@@ -1,5 +1,5 @@
-require 'grid'
-require 'solver_grid'
+require_relative 'grid'
+require_relative 'solver_grid'
 
 class SudokuSolver
   def initialize(puzzle_string)
